@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Pedra Papel Tesoura</title>
+    <style>
+        .game {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            gap: 20px; /* Aumentei o espaçamento entre os botões */
+        }
+        .options button {
+            padding: 10px 20px; /* Aumentei o tamanho dos botões */
+            font-size: 1.2rem; /* Aumentei o tamanho do texto nos botões */
+            background-color: #496487; /* Cor de fundo dos botões */
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .options button:hover {
+            background-color: #000000; /* Cor de fundo ao passar o mouse */
+        }
+        /* Restante do CSS aqui */
+    </style>
+</head>
+<body>
+    <section class="game">
+        <div class="title">Jogo de Pedra, Papel e Tesoura</div>
+        <div class="options">
+            
+            <button class="rock">Pedra</button>
+
+            <button class="paper">Papel</button>
+
+            <button class="scissor">Tesoura</button>
+
+        </div>
+        <div class="result"></div>
+    </section>
+    <script src="app.js"></script>
+</body>
+</html>
