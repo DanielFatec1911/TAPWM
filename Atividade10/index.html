@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Triângulo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; 
+            position: relative; /* Adiciona position relative para o corpo */
+        }
+
+        h1 {
+            color: #00a2ff;
+        }
+
+        input[type=number] {
+            width: 200px; 
+            padding: 10px; 
+            margin: 10px auto; 
+            display: block;
+            border: 1px solid #00a2ff; 
+            border-radius: 5px; 
+        }
+
+        button {
+            background-color: #0074D9;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto; 
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #imagem {
+            position: absolute;
+           bottom: 20;  
+            left: 50%; 
+            transform: translateX(-350%) scale(2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Verificador de Triângulo</h1>
+    <label for="a">Lado A:</label>
+    <input type="number" id="a">
+    <label for="b">Lado B:</label>
+    <input type="number" id="b">
+    <label for="c">Lado C:</label>
+    <input type="number" id="c">
+    <button onclick="verificarTriangulo()">Verificar</button>
+    <p id="resultado"></p>
+    <!-- Adiciona a imagem -->
+    <img id="imagem" src="triangulo3.jpg" alt="Imagem" width="100" height="100">
+    <script>
+        function verificarTriangulo() {
+            const a = parseFloat(document.getElementById('a').value);
+            const b = parseFloat(document.getElementById('b').value);
+            const c = parseFloat(document.getElementById('c').value);
+
+            if (isNaN(a) || isNaN(b) || isNaN(c)) {
+                document.getElementById('resultado').textContent = 'Por favor, insira apenas números.';
+                return;
+            }
+
+            if (Math.abs(b - c) < a && a < b + c &&
+                Math.abs(a - c) < b && b < a + c &&
+                Math.abs(a - b) < c && c < a + b) {
+                if (a === b && b === c) {
+                    document.getElementById('resultado').textContent = 'Triângulo Equilátero';
+                } else if (a === b || a === c || b === c) {
+                    document.getElementById('resultado').textContent = 'Triângulo Isósceles';
+                } else {
+                    document.getElementById('resultado').textContent = 'Triângulo Escaleno';
+                }
+            } else {
+                document.getElementById('resultado').textContent = 'Os valores fornecidos não podem formar um triângulo.';
+            }
+        }
+    </script>
+</body>
+</html>
