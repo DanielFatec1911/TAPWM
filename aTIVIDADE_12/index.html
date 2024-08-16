@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Funções JavaScript</title>
+</head>
+<body>
+    <h1>Funções JavaScript</h1>
+
+    <!-- Formulário para a função calcular -->
+    <h2>Calcular Soma e Quadrados</h2>
+    <form id="calcularForm">
+        <label for="numero1">Número 1:</label>
+        <input type="number" id="numero1" required><br><br>
+
+        <label for="numero2">Número 2:</label>
+        <input type="number" id="numero2" required><br><br>
+
+        <label for="numero3">Número 3:</label>
+        <input type="number" id="numero3" required><br><br>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+    <div id="resultadoCalcular"></div>
+
+    <hr>
+
+    <!-- Formulário para a função verificarSubconjunto -->
+    <h2>Verificar Subconjunto</h2>
+    <form id="subconjuntoForm">
+        <label for="palavra1">Palavra 1:</label>
+        <input type="text" id="palavra1" required><br><br>
+
+        <label for="palavra2">Palavra 2:</label>
+        <input type="text" id="palavra2" required><br><br>
+
+        <button type="submit">Verificar</button>
+    </form>
+    
+
+    <div id="resultadoSubconjunto"></div>
+
+    <script>
+        function calcular(array) {
+            const soma = array.reduce((acc, num) => acc + num, 0);
+            const [primeiro, segundo] = array;
+            const quadradoPrimeiro = Math.pow.apply(null, [primeiro, 2]);
+            const quadradoSegundo = Math.pow.apply(null, [segundo, 2]);
+
+            return `A soma dos três números é: ${soma}.<br>
+                    O quadrado do primeiro é: ${quadradoPrimeiro}.<br>
+                    O quadrado do segundo é: ${quadradoSegundo}.`;
+        }
+
+        function verificarSubconjunto(palavra1, palavra2) {
+            if (!palavra1 || !palavra2) {
+                throw new Error("Erro: Uma ou ambas as palavras são vazias ou indefinidas.");
+            }
+
+            if (palavra1.includes(palavra2)) {
+                return `"${palavra2}" é um subconjunto de "${palavra1}".`;
+            } else {
+                return `"${palavra2}" não é um subconjunto de "${palavra1}".`;
+            }
+        }
+
+        // Manipula o envio do formulário de cálculo
+        document.getElementById('calcularForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const numero1 = parseFloat(document.getElementById('numero1').value);
+            const numero2 = parseFloat(document.getElementById('numero2').value);
+            const numero3 = parseFloat(document.getElementById('numero3').value);
+
+            const resultado = calcular([numero1, numero2, numero3]);
+            document.getElementById('resultadoCalcular').innerHTML = resultado;
+        });
+
+        // Manipula o envio do formulário de verificação de subconjunto
+        document.getElementById('subconjuntoForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const palavra1 = document.getElementById('palavra1').value;
+            const palavra2 = document.getElementById('palavra2').value;
+
+            try {
+                const resultado = verificarSubconjunto(palavra1, palavra2);
+                document.getElementById('resultadoSubconjunto').innerHTML = resultado;
+            } catch (e) {
+                document.getElementById('resultadoSubconjunto').innerHTML = e.message;
+            }
+        });
+    </script>
+</body>
+</html>
