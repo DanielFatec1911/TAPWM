@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Contas e Retângulo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-section, .retangulo-info {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .conta {
+            margin-top: 20px;
+        }
+        .conta h2 {
+            color: #333;
+        }
+        .conta p {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Gerenciador de Contas Bancárias e Cálculo de Retângulo</h1>
+
+
+        <div id="dadosCorrente" class="conta corrente">
+            <h2>Conta Corrente</h2>
+            <p id="dadosCorrenteTexto"></p>
+        </div>
+
+        <div id="dadosPoupanca" class="conta poupanca">
+            <h2>Conta Poupança</h2>
+            <p id="dadosPoupancaTexto"></p>
+        </div>
+
+        <div class="retangulo-info">
+            <h2>Área do Retângulo</h2>
+            <label for="base">Base:</label>
+            <input type="number" id="baseInput" placeholder="Digite a base...">
+            <label for="altura">Altura:</label>
+            <input type="number" id="alturaInput" placeholder="Digite a altura...">
+            <button onclick="calcularArea()">Calcular Área</button>
+            <p><strong>Área:</strong> <span id="area"></span></p>
+        </div>
+    </div>
+
+    <script>
+        // Contas Bancárias
+        class Conta {
+            constructor(nomeCorentista, banca, numeroConta, saldo) {
+                this.nomeCorentista = nomeCorentista;
+                this.banca = banca;
+                this.numeroConta = numeroConta;
+                this.saldo = saldo;
+            }
+
+            mostrarDados() {
+                return `Nome do Corentista: ${this.nomeCorentista}, Banca: ${this.banca}, Número da Conta: ${this.numeroConta}, Saldo: R$ ${this.saldo.toFixed(2)}`;
+            }
+        }
+
+        class Corrente extends Conta {
+            constructor(nomeCorentista, banca, numeroConta, saldo, saldoEspecial) {
+                super(nomeCorentista, banca, numeroConta, saldo);
+                this.saldoEspecial = saldoEspecial;
+            }
+
+            mostrarDados() {
+                return `${super.mostrarDados()}, Saldo Especial: R$ ${this.saldoEspecial.toFixed(2)}`;
+            }
+        }
+
+        class Poupanca extends Conta {
+            constructor(nomeCorentista, banca, numeroConta, saldo, juros, dataExpiracao) {
+                super(nomeCorentista, banca, numeroConta, saldo);
+                this.juros = juros;
+                this.dataExpiracao = dataExpiracao;
+            }
+
+            mostrarDados() {
+                return `${super.mostrarDados()}, Juros: ${this.juros.toFixed(2)}%, Data de Expiração: ${this.dataExpiracao}`;
+            }
+        }
+
+        //valores 
+        const contaCorrente = new Corrente("Daniel Silva", "Banco do Brasil", "12345678", 1000.00, 500.00);
+        const contaPoupanca = new Poupanca("Denilce professora", "Caixa Econômica", "87654321", 2000.00, 1.5, "2025-12-31");
+
+        //exibição 
+        function atualizarDados() {
+            const dadosCorrenteTexto = document.getElementById('dadosCorrenteTexto');
+            const dadosPoupancaTexto = document.getElementById('dadosPoupancaTexto');
+
+            dadosCorrenteTexto.textContent = contaCorrente.mostrarDados();
+            dadosPoupancaTexto.textContent = contaPoupanca.mostrarDados();
+        }
+
+
+        atualizarDados();
+
+        //  Retângulo
+        function calcularArea() {
+            var base = parseFloat(document.getElementById("baseInput").value);
+            var altura = parseFloat(document.getElementById("alturaInput").value);
+
+            if (isNaN(base) || isNaN(altura) || base <= 0 || altura <= 0) {
+                alert("Por favor, insira valores válidos para base e altura.");
+                return;
+            }
+
+            function Retangulo(base, altura) {
+                this.base = base;
+                this.altura = altura;
+
+                this.calcularArea = function() {
+                    return this.base * this.altura;
+                };
+            }
+
+            var meuRetangulo = new Retangulo(base, altura);
+            var area = meuRetangulo.calcularArea();
+            document.getElementById("area").textContent = area;
+        }
+    </script>
+    </html>        
+    </body>
