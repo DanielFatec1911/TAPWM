@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios de JavaScript</title>
+</head>
+<body>
+    <h1>Exercício 1: Retângulo</h1>
+    <label for="base">Base:</label>
+    <input type="number" id="base" name="base">
+    <br>
+    <br>
+    <label for="altura">Altura:</label>
+    <input type="number" id="altura" name="altura">
+    <br>
+    <br>
+    <button onclick="calcularAreaRetangulo()">Calcular Área</button>
+    <p id="resultadoArea"></p>
+    <br>
+
+    <h1>Exercício 2: Contas</h1>
+    <h2>Conta Corrente</h2>
+    <p id="dadosCorrente"></p>
+    <h2>Conta Poupança</h2>
+    <p id="dadosPoupanca"></p>
+
+    <script>
+        class Retangulo {
+            constructor(base, altura) {
+                this.base = base;
+                this.altura = altura;
+            }
+
+            calcularArea() {
+                return this.base * this.altura;
+            }
+        }
+
+        function calcularAreaRetangulo() {
+            const base = document.getElementById('base').value;
+            const altura = document.getElementById('altura').value;
+            const retangulo = new Retangulo(base, altura);
+            document.getElementById('resultadoArea').innerText = `A área do retângulo é: ${retangulo.calcularArea()}`;
+        }
+
+        class Conta {
+            constructor(nomeCorrentista, banco, numeroConta, saldo) {
+                this.nomeCorrentista = nomeCorrentista;
+                this.banco = banco;
+                this.numeroConta = numeroConta;
+                this.saldo = saldo;
+            }
+
+            get dadosConta() {
+                return `Nome: ${this.nomeCorrentista}, Banco: ${this.banco}, Número da Conta: ${this.numeroConta}, Saldo: ${this.saldo}`;
+            }
+
+            set atualizarSaldo(novoSaldo) {
+                this.saldo = novoSaldo;
+            }
+        }
+
+        class Corrente extends Conta {
+            constructor(nomeCorrentista, banco, numeroConta, saldo, saldoEspecial) {
+                super(nomeCorrentista, banco, numeroConta, saldo);
+                this.saldoEspecial = saldoEspecial;
+            }
+
+            get dadosConta() {
+                return `${super.dadosConta}, Saldo Especial: ${this.saldoEspecial}`;
+            }
+        }
+
+        class Poupanca extends Conta {
+            constructor(nomeCorrentista, banco, numeroConta, saldo, juros, dataVencimento) {
+                super(nomeCorrentista, banco, numeroConta, saldo);
+                this.juros = juros;
+                this.dataVencimento = dataVencimento;
+            }
+
+            get dadosConta() {
+                return `${super.dadosConta}, Juros: ${this.juros}, Data de Vencimento: ${this.dataVencimento}`;
+            }
+        }
+
+        const contaCorrente = new Corrente("Denilce", "Banco A", "12345-6", 1000, 500);
+        const contaPoupanca = new Poupanca("Daniel", "Banco B", "65432-1", 2000, 0.05, "01/01/2025");
+
+        document.getElementById('dadosCorrente').innerText = contaCorrente.dadosConta;
+        document.getElementById('dadosPoupanca').innerText = contaPoupanca.dadosConta;
+    </script>
+</body>
+</html>
