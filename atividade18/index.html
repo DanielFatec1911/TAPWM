@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #ff0095; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            text-align: center;
+        }
+        .form-container h2 {
+            color: #fff;
+        }
+        .form-container input, .form-container textarea {
+            width: calc(100% - 20px);
+            margin: 10px 0;
+            padding: 8px;
+        }
+        .form-container button {
+            margin: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Formulário Principal</h2>
+    <form name="formularioPrincipal" onsubmit="return validar()">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+
+        <label for="email">E-mail:</label><br>
+        <input type="email" id="email" name="email"><br>
+
+        <label for="comentario">Comentário:</label><br>
+        <textarea id="comentario" name="comentario"></textarea><br>
+
+        <label>Pesquisa:</label><br>
+        <span>Primeira vez nesta página?</span><br>
+        <input type="radio" id="sim" name="pesquisa" value="sim">
+        <label for="sim">Sim</label>
+        <input type="radio" id="nao" name="pesquisa" value="nao">
+        <label for="nao">Não</label><br><br>
+
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpar</button>
+    </form>
+</div>
+
+<script>
+    function validar() {
+        const form = document.formularioPrincipal.elements;
+
+        
+        const nome = form['nome'].value.trim();
+        if (nome.length < 10) {
+            alert('Nome deve ter pelo menos 10 caracteres.');
+            return false;
+        }
+
+    
+        const email = form['email'].value.trim();
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('E-mail deve conter "@" e ".".');
+            return false;
+        }
+
+        
+        const comentario = form['comentario'].value.trim();
+        if (comentario.length < 20) {
+            alert('Comentário deve ter no mínimo 20 caracteres.');
+            return false;
+        }
+
+        
+        const pesquisa = form['pesquisa'].value;
+        if (!pesquisa) {
+            alert('Por favor, responda à pesquisa.');
+            return false;
+        } else if (pesquisa === 'nao') {
+            alert('Que bom que você voltou a visitar esta página!');
+        } else {
+            alert('Volte sempre a esta página!');
+        }
+
+        return true;
+    }
+</script>
+
+</body>
+</html>
