@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformar Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Criar um Input Text e dois Input Checkbox</h3>
+
+    <input type="text" id="textInput" placeholder="Digite algo...">
+    <br><br>
+
+    <input type="checkbox" id="uppercaseCheckbox">
+    <label for="uppercaseCheckbox">Transforma o conteúdo do Input Text em letras maiúsculas.</label>
+    <br>
+
+    <input type="checkbox" id="lowercaseCheckbox">
+    <label for="lowercaseCheckbox">Transforma o conteúdo do Input Text em letras minúsculas.</label>
+
+    <script>
+        const textInput = document.getElementById('textInput');
+        const uppercaseCheckbox = document.getElementById('uppercaseCheckbox');
+        const lowercaseCheckbox = document.getElementById('lowercaseCheckbox');
+
+        
+        function transformText() {
+            if (uppercaseCheckbox.checked) {
+                textInput.value = textInput.value.toUpperCase();
+            } else if (lowercaseCheckbox.checked) {
+                textInput.value = textInput.value.toLowerCase();
+            }
+        }
+
+        
+        uppercaseCheckbox.addEventListener('change', () => {
+            lowercaseCheckbox.checked = false; 
+            transformText();
+        });
+
+        lowercaseCheckbox.addEventListener('change', () => {
+            uppercaseCheckbox.checked = false; 
+            transformText();
+        });
+    </script>
+
+</body>
+</html>
